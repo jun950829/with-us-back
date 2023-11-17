@@ -405,6 +405,51 @@ export interface ApiClanClan extends Schema.CollectionType {
   };
 }
 
+export interface ApiRecruitClanRecruitClan extends Schema.CollectionType {
+  collectionName: 'recruit_clans';
+  info: {
+    singularName: 'recruit-clan';
+    pluralName: 'recruit-clans';
+    displayName: 'recruit-clan';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    desc: Attribute.Text;
+    image: Attribute.Media;
+    master: Attribute.Relation<
+      'api::recruit-clan.recruit-clan',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    writer: Attribute.Relation<
+      'api::recruit-clan.recruit-clan',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    total: Attribute.Integer;
+    recruitMember: Attribute.Integer;
+    recruiting: Attribute.Boolean & Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::recruit-clan.recruit-clan',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::recruit-clan.recruit-clan',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -708,6 +753,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToMany',
       'api::clan.clan'
     >;
+    recruit_clans: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::recruit-clan.recruit-clan'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -736,6 +786,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::clan.clan': ApiClanClan;
+      'api::recruit-clan.recruit-clan': ApiRecruitClanRecruitClan;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;

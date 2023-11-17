@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recruit_clans",
+  "info": {
+    "singularName": "recruit-clan",
+    "pluralName": "recruit-clans",
+    "displayName": "recruit-clan"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "master": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "recruit_clans"
+    },
+    "writer": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "recruit_clans"
+    },
+    "total": {
+      "type": "integer"
+    },
+    "recruitMember": {
+      "type": "integer"
+    },
+    "recruiting": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

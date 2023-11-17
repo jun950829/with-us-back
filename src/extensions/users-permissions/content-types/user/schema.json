@@ -71,6 +71,12 @@
       "relation": "manyToMany",
       "target": "api::clan.clan",
       "mappedBy": "members"
+    },
+    "recruit_clans": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recruit-clan.recruit-clan",
+      "mappedBy": "writer"
     }
   }
 }
